@@ -1,19 +1,27 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <qfile.h>
+#include <qtextstream.h>
 #include <QVector>
 #include <fstream>
 #include <QGraphicsRectItem>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QProcess>
+#include <QIODevice>
+#include<QTextCodec>
+#include"user.h"
 using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    this->loaduser(lim);
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
     ui->setupUi(this);
-    house=new conhouse;
-    shelf=new conshelf;
-    item=new conitem;
+    house=new conhouse(lim);
+    shelf=new conshelf(lim);
+    item=new conitem(lim);
     bill=new conbill;
     scene=new storescene(this,ui->houseButton,ui->shelfButton,ui->queryButton,house,shelf,item);
     ui->houseView->setScene(scene);
@@ -349,4 +357,173 @@ void MainWindow::get_items_of_shelf(int id){
         ui->searchTable->setItem(i,6,new QTableWidgetItem(QString::number(result[i].z)));
         ui->searchTable->setItem(i,7,new QTableWidgetItem(result[i].description));
     }
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    QString filename = ".\\db.dat";
+    QFile f( filename );
+    if(f.exists())
+    {
+
+        QMessageBox msgBox;
+        msgBox.setStandardButtons(QMessageBox::Yes| QMessageBox::No);
+        msgBox.setInformativeText("是否要替换已有的数据库信息？");
+       // QMessageBox::information(this, "Document", , QMessageBox::Ok | QMessageBox::Cancel);
+        switch (msgBox.exec())
+        {
+            case QMessageBox::No:
+                return;
+            case QMessageBox::Yes:
+                break;
+        default:
+            break;
+        }
+    }
+    f.open(QIODevice::WriteOnly);
+
+    QTextStream t(&f);
+
+   // t << MultiLineEdit1->text();
+    t <<ui->textEdit_5->toPlainText()<<endl;
+    f.close();
+    this->loaduser(lim);
+    house->resetuser(lim);
+    if(!house->connect_test())
+    {
+        QMessageBox::information(this, "注意", "请先设置用户信息，再尝试初始化!", QMessageBox::Ok );
+        return ;
+    }
+    char cmd[1000];
+    memset(cmd,0,sizeof(cmd));
+    strcat(cmd,"create database ");
+    strcat(cmd,ui->textEdit_5->toPlainText().toAscii());
+    house->query(cmd);
+    memset(cmd,0,sizeof(cmd));
+    strcat(cmd,"use ");
+    strcat(cmd,ui->textEdit_5->toPlainText().toAscii());
+    house->query(cmd);
+    memset(cmd,0,sizeof(cmd));
+    strcat(cmd,"CREATE TABLE `shelf` ( `id` int(11) NOT NULL AUTO_INCREMENT,`name` varchar(50) DEFAULT NULL,`belong_to` int(11) DEFAULT NULL,`x` int(11) DEFAULT NULL,`y` int(11) DEFAULT NULL, `w` int(11) DEFAULT NULL,`h` int(11) DEFAULT NULL, `direc` int(11) DEFAULT NULL,`col` int(11) DEFAULT NULL, `layer` int(11) DEFAULT NULL, `thin` int(11) DEFAULT NULL,`description` varchar(200) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;");
+    house->query(cmd);
+    house->query("CREATE TABLE `house` ( `id` int(11) NOT NULL AUTO_INCREMENT,`name` varchar(50) DEFAULT NULL, `x` int(11) DEFAULT NULL,`y` int(11) DEFAULT NULL,`w` int(11) DEFAULT NULL,`h` int(11) DEFAULT NULL,`description` varchar(200) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;");
+    house->query("CREATE TABLE `item` (`id` int(11) NOT NULL AUTO_INCREMENT,`name` varchar(50) DEFAULT NULL,`category` varchar(50) DEFAULT NULL,`num` int(11) DEFAULT NULL,`belong_to` int(11) DEFAULT NULL, `x` int(11) DEFAULT NULL,`y` int(11) DEFAULT NULL,`z` int(11) DEFAULT NULL,`description` varchar(200) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;");
+    /*  char cmd1[500];
+
+    memset(cmd1,0,sizeof(cmd1));
+    strcat(cmd1,"mysql -h localhost -u root -p lim < E:\\qtwork\\limutest\\data\\store_0.sql \n 314159");
+    strcat(cmd,"mysql -u ");
+    strcat(cmd,house->muser);
+    strcat(cmd," --password=");
+    strcat(cmd,house->mpassword);
+    strcat(cmd,"\n create database ");
+    strcat(cmd,ui->textEdit_5->toPlainText().toAscii());
+    strcat(cmd,"\n use ");
+    strcat(cmd,ui->textEdit_5->toPlainText().toAscii());
+    strcat(cmd,"\n source ");
+    strcat(cmd,ui->textEdit_4->toPlainText().toAscii());
+    strcat(cmd,"\n");
+
+    QProcess p(0);
+    p.start("cmd");
+    p.waitForStarted();
+    p.write(cmd1);
+    p.closeWriteChannel();
+    p.waitForFinished();
+    qDebug()<<QString::fromLocal8Bit(p.readAllStandardOutput());*/
+
+
+}
+
+
+
+void MainWindow::on_pushButton_clicked()
+{
+
+    QString filename = ".\\user.dat";
+    QFile f( filename );
+    if(f.exists())
+    {
+
+        QMessageBox msgBox;
+        msgBox.setStandardButtons(QMessageBox::Yes| QMessageBox::No);
+        msgBox.setInformativeText("是否要替换已有的用户信息？");
+       // QMessageBox::information(this, "Document", , QMessageBox::Ok | QMessageBox::Cancel);
+        switch (msgBox.exec())
+        {
+            case QMessageBox::No:
+                return;
+            case QMessageBox::Yes:
+                break;
+        default:
+            break;
+        }
+    }
+
+    f.open(QIODevice::WriteOnly);
+
+    QTextStream t(&f);
+
+   // t << MultiLineEdit1->text();
+    t <<ui->textEdit->toPlainText()<<endl;
+    t <<ui->textEdit_2->toPlainText()<<endl;
+    t <<ui->textEdit_3->toPlainText()<<endl;
+    f.close();
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    int f=true;
+    house->resetuser(lim);
+    if(!house->reconnect())
+        f=false;
+    item->resetuser(lim);
+    if(!item->reconnect())
+        f=false;
+    shelf->resetuser(lim);
+    if(!shelf->reconnect())
+        f=false;
+    if(f)
+    {
+        QMessageBox::information(0, "消息", "重新连接成功!", QMessageBox::Ok );
+    }
+    else
+    {
+        QMessageBox::information(0, "消息", "重新连接失败!", QMessageBox::Ok );
+    }
+
+}
+bool MainWindow::loaduser(userdata &u){
+    QString filename = ".\\user.dat";
+    QFile f( filename );
+    if(!f.exists())
+    {
+        QMessageBox::information(0, "Document", "No user information,please set them and reconnect!", QMessageBox::Ok );
+        return false;
+    }
+    f.open(QIODevice::ReadOnly);
+
+    QTextStream t(&f);
+
+    t>>u.muser;
+
+    t>>u.mpassword;
+
+    t>>u.mport;
+    f.close();
+    filename =".\\db.dat";
+    QFile ft( filename );
+    if(!ft.exists())
+    {
+        QMessageBox::information(0, "Document", "No database information,please set them and reconnect!", QMessageBox::Ok);
+        return false;
+    }
+    ft.open(QIODevice::ReadOnly);
+
+    QTextStream ta(&ft);
+
+    ta>>u.mdbname;
+    ft.close();
+    return true;
+
 }

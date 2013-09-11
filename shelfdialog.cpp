@@ -55,3 +55,9 @@ void shelfdialog::onAccepted()
     now.description=ui->desEdit->document()->toPlainText();
 
 }
+
+/*void shelfdialog::on_buttonBox_rejected()
+{
+
+}
+*/

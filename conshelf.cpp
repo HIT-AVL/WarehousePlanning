@@ -1,6 +1,6 @@
 #include "conshelf.h"
 
-conshelf::conshelf()
+conshelf::conshelf(userdata su):DBMS(su)
 {
     char cmd[400];
     view.clear();

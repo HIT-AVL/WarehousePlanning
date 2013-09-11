@@ -24,6 +24,8 @@ private slots:
     void onAccepted();
     void on_housedialog_accepted();
     void on_buttonBox_accepted();
+    void on_buttonBox_rejected();
+
 };
 
 #endif // HOUSEDIALOG_H

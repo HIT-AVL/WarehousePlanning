@@ -1,6 +1,9 @@
 #include "dbms.h"
-
-DBMS::DBMS(){
+#include <qfile.h>
+#include <qtextstream.h>
+#include <QMessageBox>
+DBMS::DBMS(userdata du){
+    db=du;
     this->initialize_sql();
     this->connect_sql();
 }
@@ -14,8 +17,19 @@ int DBMS::initialize_sql(){
 }
 
 int DBMS::connect_sql(){
-    return mysql_real_connect(&mysql_conn, "localhost", "root","mysql",
-                              "store", MYSQL_PORT, NULL, 0)?0:1;
+    return mysql_real_connect(&mysql_conn, "localhost", db.muser,db.mpassword,
+                              db.mdbname, db.mport, NULL, 0)?0:1;
+
+}
+bool DBMS::connect_test(){
+    this->initialize_sql();
+    return  mysql_real_connect(&mysql_conn, "localhost", db.muser,db.mpassword,"test", db.mport, NULL, 0)?true:false;
+
+}
+bool DBMS::reconnect(){
+    this->disconnet_sql();
+    this->initialize_sql();
+    return (this->connect_sql())==0?true:false;
 }
 
 int DBMS::disconnet_sql(){
@@ -26,6 +40,10 @@ int DBMS::disconnet_sql(){
 int DBMS::end_server_sql(){
     mysql_server_end();
     return 0;
+}
+void DBMS::resetuser(userdata x)
+{
+    db=x;
 }
 
 int DBMS::query(char *sqlcmd){

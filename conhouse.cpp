@@ -1,9 +1,11 @@
 #include "conhouse.h"
-
-conhouse::conhouse()
+#include "user.h"
+conhouse::conhouse(userdata hu):DBMS(hu)
 {
     house.id=-1;
     char cmd[400];
+
+  //  this->connect_sql();
     sprintf(cmd,"select * from house");
     if (query(cmd)==0){
         storehouse tmp;

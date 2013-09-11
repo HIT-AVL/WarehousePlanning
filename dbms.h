@@ -4,7 +4,7 @@
 #ifndef __LCC__
 #define __LCC__
 #endif
-
+#include"user.h"
 #include <mysql.h>
 #include <stdio.h>
 #include <string.h>
@@ -18,14 +18,18 @@
 class DBMS
 {
 public:
-    DBMS();
+    DBMS(userdata du);
     ~DBMS();
     int initialize_sql();
     int connect_sql();
+    bool reconnect();
     int disconnet_sql();
     int end_server_sql();
     int query(char *sqlcmd);
+    bool connect_test();
+    void resetuser(userdata x);
     int errorCode;
+    userdata db;
 protected:
     MYSQL_RES *mysql_result;
     MYSQL_ROW mysql_row;

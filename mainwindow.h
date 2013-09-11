@@ -7,7 +7,7 @@
 #include <conitem.h>
 #include <conshelf.h>
 #include <storescene.h>
-
+#include "user.h"
 namespace Ui {
 class MainWindow;
 }
@@ -25,8 +25,10 @@ protected:
     conshelf * shelf;
     conitem * item;
     conbill * bill;
+    userdata lim;
 private slots:
     void on_massOutputButton_clicked();
+    bool loaduser(userdata &u);
 
     void on_pathButton_clicked();
 
@@ -45,6 +47,14 @@ private slots:
     void on_searchButton_clicked();
 
     void get_items_of_shelf(int);
+    void on_pushButton_3_clicked();
+
+   // void on_pushButton_2_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_4_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

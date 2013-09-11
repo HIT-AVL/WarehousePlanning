@@ -4,6 +4,7 @@
 #include <QString>
 #include <QGraphicsRectItem>
 #include <QVector>
+#include "user.h"
 class storeshelf{
 public:
 

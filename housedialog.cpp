@@ -28,7 +28,7 @@ void housedialog::onAccepted()
     now.x=rect.x()+ rect.width()*(ui->xposEdit->text().toDouble()/ui->widthEdit->text().toDouble() );
     now.y=rect.y()+ rect.height()*(ui->yposEdit->text().toDouble()/ui->heightEdit->text().toDouble());
     now.description=ui->desEdit->document()->toPlainText();
-    //qDebug()<<now.x<<","<<now.y;
+ //  qDebug()<<now.x<<","<<now.y;
 }
 
 void housedialog::on_housedialog_accepted()
@@ -43,3 +43,12 @@ void housedialog::on_buttonBox_accepted()
     //qDebug()<<"1";
     on_housedialog_accepted();
 }
+
+void housedialog::on_buttonBox_rejected()
+{
+   //qDebug()<<"err";
+   QDialog::reject();
+
+}
+
+

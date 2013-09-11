@@ -1,7 +1,8 @@
 #include "conitem.h"
 
-conitem::conitem()
+conitem::conitem(userdata iu):DBMS(iu)
 {
+
     char cmd[600];
     sprintf(cmd,"select * from item");
     QVector<storeitem> ret;

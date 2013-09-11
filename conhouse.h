@@ -4,12 +4,13 @@
 #include <storehouse.h>
 #include <storeshelf.h>
 #include <QVector>
+#include "user.h"
 class conhouse:public DBMS
 {
 private:
     storehouse get_house_now();
 public:
-    conhouse();
+    conhouse(userdata hu);
 
     storehouse house;
 

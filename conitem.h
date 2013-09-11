@@ -5,10 +5,11 @@
 #include <storeitem.h>
 #include <QMap>
 #include <QVector>
+#include "user.h"
 class conitem : public DBMS
 {
 public:
-    conitem();
+    conitem(userdata iu);
     QMap<int,storeitem> view;
 
     void insert_item(storeitem&);

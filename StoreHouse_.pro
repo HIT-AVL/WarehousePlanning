@@ -7,10 +7,10 @@
 QT       += core gui
 
 
-INCLUDEPATH +=\mysqllib\include
-LIBS +=\mysqllib\lib\libmysql.lib
-LIBS +=\mysqllib\lib\mysqlclient.lib
-LIBS +=\mysqllib\lib\libmysql.dll
+INCLUDEPATH +=D:\MySQL\include
+LIBS +=D:\MySQL\lib\opt\libmysql.lib
+LIBS +=D:\MySQL\lib\opt\mysqlclient.lib
+LIBS +=D:\MySQL\lib\opt\libmysql.dll
 
 TARGET = StoreHouse_
 TEMPLATE = app
@@ -39,7 +39,8 @@ HEADERS  += mainwindow.h \
     conbill.h \
     storescene.h \
     shelfdialog.h \
-    housedialog.h
+    housedialog.h \
+    user.h
 
 FORMS    += mainwindow.ui \
     shelfdialog.ui \

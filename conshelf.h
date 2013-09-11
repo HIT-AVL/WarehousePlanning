@@ -6,7 +6,7 @@
 #include <storeitem.h>
 #include <dbms.h>
 #include <QVector>
-
+#include "user.h"
 struct Node{
     int x,y;
     int id;
@@ -33,7 +33,7 @@ struct Node{
 class conshelf : public DBMS
 {
 public:
-    conshelf();
+    conshelf(userdata su);
 
     QMap<int,storeshelf> view;
 
