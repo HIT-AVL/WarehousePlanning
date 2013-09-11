@@ -1,0 +1,16 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\dbms.o
+./release\conhouse.o
+./release\conshelf.o
+./release\conitem.o
+./release\conbill.o
+./release\storescene.o
+./release\shelfdialog.o
+./release\housedialog.o
+./release\moc_mainwindow.o
+./release\moc_storescene.o
+./release\moc_shelfdialog.o
+./release\moc_housedialog.o
+);
