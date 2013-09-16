@@ -14,7 +14,7 @@
 using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow)//构建UI界面
 {
     this->loaduser(lim);
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
@@ -40,7 +40,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-#if 0
+#if 0//调试代码
 void MainWindow::on_massOutputButton_clicked()
 {
     QString filename = QFileDialog::getOpenFileName();
@@ -103,7 +103,7 @@ void MainWindow::on_pathButton_clicked()
         }
     }
     //qDebug()<<a.size();
-#if 1
+#if 1//执行代码
     f=QVector<QVector<double> >(1<<n,QVector<double>(a.size(),1e200));
     g=QVector<QVector<QPair<int,int> > >(1<<n,QVector<QPair<int,int> >   (a.size()));
     f[1][0]=0;
@@ -153,7 +153,7 @@ void MainWindow::on_pathButton_clicked()
 #endif
 
 
-void MainWindow::on_initHouseButton_clicked()
+void MainWindow::on_initHouseButton_clicked()//初始化仓库
 {
     QVector<int > killer;
     foreach (const storeitem u,item->view)killer.push_back(u.id);
@@ -165,26 +165,26 @@ void MainWindow::on_initHouseButton_clicked()
     house->delete_house();
 }
 
-void MainWindow::on_initInputButton_clicked()
+void MainWindow::on_initInputButton_clicked()//入库初始化表项
 {
     ui->inputTable->setColumnCount(0);
-    ui->inputTable->setRowCount(0);
+    ui->inputTable->setRowCount(0);//行数列数清零
 
     ui->inputTable->setColumnCount(8);
-    ui->inputTable->setRowCount(18);
+    ui->inputTable->setRowCount(18);//初始化为8列18行
     QStringList headers;
-    headers<<"Name"<<"Category"<<"Amount"<<"Shelf ID"<<"Direction"<<"Colum"<<"Layer"<<"Description";
-    ui->inputTable->setHorizontalHeaderLabels(headers);
+    headers<<"Name"<<"Category"<<"Amount"<<"Shelf ID"<<"Direction"<<"Colum"<<"Layer"<<"Description";//货物信息项目
+    ui->inputTable->setHorizontalHeaderLabels(headers);//位置设定
     for (int i=0;i<18;i++){
         for (int j=0;j<8;j++)
             ui->inputTable->setItem(i,j,new QTableWidgetItem(QString()));
-    }
+    }//初始化表格
 }
 
-void MainWindow::on_finInputButton_clicked()
+void MainWindow::on_finInputButton_clicked()//表项货物入库
 {
 
-    for (int i=0;i<ui->inputTable->rowCount();i++)
+    for (int i=0;i<ui->inputTable->rowCount();i++)//将表中信息入库
         if (ui->inputTable->item(i,0)->text().size()>0){
             storeitem tmp;
             tmp.name=ui->inputTable->item(i,0)->text();
@@ -199,24 +199,23 @@ void MainWindow::on_finInputButton_clicked()
             //shelf->view[tmp.belong_to].node.push_back(tmp.id);
         }
     ui->inputTable->setColumnCount(0);
-    ui->inputTable->setRowCount(0);
+    ui->inputTable->setRowCount(0);//将表清空
 }
 #include <QDebug>
-void MainWindow::on_massInputButton_clicked()
+void MainWindow::on_massInputButton_clicked()//批量入库
 {
-    QString filename = QFileDialog::getOpenFileName();
-    QFileInfo info(filename);
-    if (info.exists() && info.isFile()) {
-        int m;
-        FILE *fp=fopen(filename.toStdString().c_str(),"r");
-        //ifstream fin(filename.toStdString().c_str());
-        fscanf(fp,"%d\n",&m);
+    QString filename = QFileDialog::getOpenFileName();//取得文件名称
+    QFileInfo info(filename);//取得文件路径
+    if (info.exists() && info.isFile()) {//判断文件是否存在
+        int m;//记录文件中的表单数目
+        FILE *fp=fopen(filename.toStdString().c_str(),"r");//以只读方式打开文件
+        fscanf(fp,"%d\n",&m);//读出表单数目
         //qDebug()<<"m="<<m;
         storeitem tmp;
         char name[200],category[200],description[200];
-        int num,belong_to,x,y,z;
+        int num,belong_to,x,y,z;//num-货物数量，belong_to-书架的ID，x-方向，y-列，z-层
         for (int i=0;i<m;i++){
-            fscanf(fp,"%[^\t]\t%[^\t]\t%d%d%d%d%d\t%[^\n]\n",name,category,&num,&belong_to,&x,&y,&z,description);
+            fscanf(fp,"%[^\t]\t%[^\t]\t%d%d%d%d%d\t%[^\n]\n",name,category,&num,&belong_to,&x,&y,&z,description);//按照固定格式读取文件中的数据
             tmp.name=QString(name);
             tmp.category=QString(category);
             tmp.num=num;
@@ -225,60 +224,63 @@ void MainWindow::on_massInputButton_clicked()
             tmp.y=y;
             tmp.z=z;
             tmp.description=QString(description);
-            item->insert_item(tmp);
+            item->insert_item(tmp);//表单入库操作
         }
         fclose(fp);
     }
+	else{
+		 QMessageBox::information(NULL, "错误", "找不到文件", QMessageBox::Yes);//错误提示
+	}
 }
 
-void MainWindow::on_initOutputButton_clicked()
+void MainWindow::on_initOutputButton_clicked()//出库初始化表项
 {
     ui->outputTable->setColumnCount(0);
-    ui->outputTable->setRowCount(0);
+    ui->outputTable->setRowCount(0);//行数列数清零
 
     ui->outputTable->setColumnCount(3);
-    ui->outputTable->setRowCount(14);
+    ui->outputTable->setRowCount(14);//初始化为3列14行
     QStringList headers;
-    headers<<"Name"<<"Category"<<"Amount";
+    headers<<"Name"<<"Category"<<"Amount";//出库货物信息
     ui->outputTable->setHorizontalHeaderLabels(headers);
     for (int i=0;i<14;i++){
         for (int j=0;j<8;j++)
-            ui->outputTable->setItem(i,j,new QTableWidgetItem(QString()));
+            ui->outputTable->setItem(i,j,new QTableWidgetItem(QString()));//初始化表项
     }
 }
 
-void MainWindow::on_pathButton_clicked()
+void MainWindow::on_pathButton_clicked()//寻找最短路径
 {
-    QVector<QPair<QPair<QString,QString>,int> > keyword;
+    QVector<QPair<QPair<QString,QString>,int> > keyword;//以名称，种类，书架号确定一本书
     ///qDebug()<<ui->outputTable->rowCount();
     for (int i=0;i<(int)ui->outputTable->rowCount();i++){
         QString name    =ui->outputTable->item(i,0)->text();
         QString category=ui->outputTable->item(i,1)->text();
-        QString num     =ui->outputTable->item(i,2)->text();
-        if (name.size()==0||category.size()==0||num.size()==0){
+        QString num     =ui->outputTable->item(i,2)->text();//取得第i行表单的数据
+        if (name.size()==0||category.size()==0||num.size()==0){//如果表单为空，跳过插入过程
             continue;
         }
         QPair<QPair<QString,QString>,int> tmp=qMakePair(qMakePair(name,category),num.toInt());
         //qDebug()<<i<<","<<name<<","<<category<<num;
-        keyword.push_back(tmp);
+        keyword.push_back(tmp);//将新表单的信息连在向量尾部
     }
     //qDebug()<<scene->beg->pos().x()<<scene->beg->pos().y();
-    bill->find_path(shelf,item,keyword,scene->beg->x(),scene->beg->y());
+    bill->find_path(shelf,item,keyword,scene->beg->x(),scene->beg->y());//计算路径
     bill->path->setVisible(true);
     for (int i=0;i<bill->point.size();i++){
         this->scene->addItem(bill->point[i]);
-    }
+    }//绘制路径
 }
 
-void MainWindow::on_finOutputButton_clicked()
+void MainWindow::on_finOutputButton_clicked()//表项货物出库
 {
     ui->outputTable->setColumnCount(0);
-    ui->outputTable->setRowCount(0);
-    bill->make_deal(shelf,item);
+    ui->outputTable->setRowCount(0);//将表清空
+    bill->make_deal(shelf,item);//消除路径
     return ;
 }
 
-void MainWindow::on_massOutputButton_clicked()
+void MainWindow::on_massOutputButton_clicked()//批量出库
 {
 
     QVector<QPair<QPair<QString,QString>,int> > keyword;
@@ -299,6 +301,9 @@ void MainWindow::on_massOutputButton_clicked()
         }
         fclose(fp);
     }
+	else{
+		 QMessageBox::information(NULL, "错误", "找不到文件", QMessageBox::Yes);//错误提示
+	}
     qDebug()<<"0";
     bill->find_path(shelf,item,keyword,scene->beg->x(),scene->beg->y());
     bill->path->setVisible(true);
@@ -310,10 +315,10 @@ void MainWindow::on_massOutputButton_clicked()
 
 QString direct[4]={"North","South","East","West"};
 
-void MainWindow::on_searchButton_clicked()
+void MainWindow::on_searchButton_clicked()//检索功能
 {
     ui->searchTable->setColumnCount(0);
-    ui->searchTable->setRowCount(0);
+    ui->searchTable->setRowCount(0);//表项清空
     QString keyword=ui->keywordEdit->text();
     int flag=0;
     if (ui->nameBox->isChecked())flag|=1;
@@ -338,7 +343,7 @@ void MainWindow::on_searchButton_clicked()
     }
 }
 
-void MainWindow::get_items_of_shelf(int id){
+void MainWindow::get_items_of_shelf(int id){//显示书架信息
     ui->searchTable->setColumnCount(0);
     ui->searchTable->setRowCount(0);
     QVector<storeitem> result=item->get_item_of_shelf(id);
