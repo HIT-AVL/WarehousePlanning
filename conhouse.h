@@ -11,7 +11,7 @@ private:
     storehouse get_house_now();
 public:
     conhouse(userdata hu);
-
+    void rinit();
     storehouse house;
 
     //QVector<storeshelf>;

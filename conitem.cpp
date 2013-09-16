@@ -24,6 +24,29 @@ conitem::conitem(userdata iu):DBMS(iu)
         }
     }
 }
+void conitem::rinit()
+{
+    char cmd[600];
+    sprintf(cmd,"select * from item");
+    QVector<storeitem> ret;
+    view.clear();
+    if (query(cmd)==0){
+        storeitem tmp;
+        mysql_result=mysql_store_result(&mysql_conn);
+        while ((mysql_row=mysql_fetch_row(mysql_result))){
+            tmp.id=atoi(mysql_row[0]);
+            tmp.name=QString(QLatin1String(mysql_row[1]));
+            tmp.category=QString(QLatin1String(mysql_row[2]));
+            tmp.num=atoi(mysql_row[3]);
+            tmp.belong_to=atoi(mysql_row[4]);
+            tmp.x=atoi(mysql_row[5]);
+            tmp.y=atoi(mysql_row[6]);
+            tmp.z=atoi(mysql_row[7]);
+            tmp.description=QString(QLatin1String(mysql_row[8]));
+            view[tmp.id]=tmp;
+        }
+    }
+}
 
 void conitem::delete_item(int ID){
     char cmd[400];

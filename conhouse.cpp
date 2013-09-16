@@ -21,7 +21,25 @@ conhouse::conhouse(userdata hu):DBMS(hu)
         //qDebug()<<house.id<<endl;
     }
 }
+void conhouse::rinit(){
+    house.id=-1;
+    char cmd[400];
 
+  //  this->connect_sql();
+    sprintf(cmd,"select * from house");
+    if (query(cmd)==0){
+        storehouse tmp;
+        mysql_result=mysql_store_result(&mysql_conn);
+        if((mysql_row=mysql_fetch_row(mysql_result))){
+            tmp.id=atoi(mysql_row[0]);
+            tmp.name=QString(QLatin1String(mysql_row[1]));
+            tmp.figure=new QGraphicsRectItem;
+            tmp.figure->setRect(atoi(mysql_row[2]),atoi(mysql_row[3]),atoi(mysql_row[4]),atoi(mysql_row[5]));
+            tmp.description=QString(QLatin1String(mysql_row[6]));
+            house=tmp;
+        }
+    }
+}
 void conhouse::insert_house(storehouse& u){
     if (house.id>0)return ;
     char cmd[400];

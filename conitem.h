@@ -15,6 +15,7 @@ public:
     void insert_item(storeitem&);
     void delete_item(int);
     void change_num(int,int);
+    void rinit();
     QVector<storeitem> get_item_of_description(int ,QString);
     QVector<storeitem> get_item_of_shelf(int );
 };
