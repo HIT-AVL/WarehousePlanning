@@ -11,7 +11,6 @@ class conitem : public DBMS
 public:
     conitem(userdata iu);
     QMap<int,storeitem> view;
-
     void insert_item(storeitem&);
     void delete_item(int);
     void change_num(int,int);

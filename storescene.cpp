@@ -97,6 +97,12 @@ void storescene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
                  return ;
              }
          }
+         if(!(house->house.figure->contains(curItem->rect().topLeft())&&house->house.figure->contains(curItem->rect().bottomRight()))) //书架不应超出仓库范围。
+         {
+                          delete curItem;
+                          event->ignore();
+                          return ;
+         }
          //qDebug()<<"arrive!";
          shelfdialog dialog(curItem);
          if (dialog.exec()){

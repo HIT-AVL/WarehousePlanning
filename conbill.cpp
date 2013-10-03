@@ -20,6 +20,7 @@ void conbill::find_path(conshelf *shelf,conitem *item,QVector<QPair<QPair<QStrin
     //qDebug()<<"x="<<x<<",y="<<y;
     int j=0;
     n=0;
+    ploylen=0;
     a.clear();
     b.clear();
     to_do.clear();
@@ -123,7 +124,8 @@ void conbill::find_path(conshelf *shelf,conitem *item,QVector<QPair<QPair<QStrin
    // qDebug()<<state<<"<"<<i<<"<"<<f[state][i];
 
     if (f[state][i]<1e200){
-        QPolygon ploygon;
+      //  QPolygon ploygon;
+        ploygon.clear();
         while (state!=0||i!=0){
             if (i<n){
                 QGraphicsEllipseItem * p= new QGraphicsEllipseItem(-2,-2,2,2);
@@ -132,6 +134,10 @@ void conbill::find_path(conshelf *shelf,conitem *item,QVector<QPair<QPair<QStrin
             }
             //qDebug()<<state<<"<"<<i<<"<"<<a[i].x<<","<<a[i].y<<","<<a[i].id;
             ploygon.append(QPoint(a[i].x,a[i].y));
+
+            ploy[ploylen].x=a[i].x;
+            ploy[ploylen].y=a[i].y;
+            ploy[ploylen++].z=a[i].layer;
             next=g[state][i].first;
             j=g[state][i].second;
             state=next,i=j;

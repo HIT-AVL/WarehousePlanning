@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 
 INCLUDEPATH +=D:\MySQL\include
@@ -25,8 +25,10 @@ SOURCES += main.cpp\
     conbill.cpp \
     storescene.cpp \
     shelfdialog.cpp \
-    housedialog.cpp
-
+    housedialog.cpp \
+    h3dDialog.cpp  \
+    glwidget.cpp  \
+    qtlogo.cpp
 HEADERS  += mainwindow.h \
     dbms.h \
     storeitem.h \
@@ -40,7 +42,10 @@ HEADERS  += mainwindow.h \
     storescene.h \
     shelfdialog.h \
     housedialog.h \
-    user.h
+    user.h \
+    h3dDialog.h \
+    glwidget.h \
+    qtlogo.h
 
 FORMS    += mainwindow.ui \
     shelfdialog.ui \

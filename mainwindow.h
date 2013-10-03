@@ -55,6 +55,8 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_house3dButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

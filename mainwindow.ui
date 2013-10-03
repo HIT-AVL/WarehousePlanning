@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>768</width>
-    <height>489</height>
+    <width>791</width>
+    <height>506</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,6 +49,19 @@
         </item>
        </layout>
       </item>
+      <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+       <widget class="QPushButton" name="house3dButton">
+        <property name="minimumSize">
+         <size>
+          <width>382</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>查看3d视图</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QGraphicsView" name="houseView"/>
       </item>
@@ -57,7 +70,7 @@
     <item>
      <widget class="QTabWidget" name="tab_5">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -464,7 +477,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>768</width>
+     <width>791</width>
      <height>23</height>
     </rect>
    </property>

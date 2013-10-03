@@ -13,6 +13,7 @@
 #include<QDebug>
 #include"conshelf.h"
 #include"user.h"
+#include"h3dDialog.h"
 using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -568,4 +569,10 @@ bool MainWindow::loaduser(userdata &u){
     ft.close();
     return true;
 
+}
+
+void MainWindow::on_house3dButton_clicked()
+{
+    h3dDialog d(house,shelf,bill);
+    d.exec();
 }

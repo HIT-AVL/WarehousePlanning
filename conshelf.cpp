@@ -55,8 +55,12 @@ void conshelf::insert_shelf(storeshelf &u){
     char cmd[400];
     sh[len].dir=u.x;
     sh[len].c=u.y;
-    sh[len].c=u.z;
+    sh[len].layer=u.z;
     sh[len].name=u.name.toLatin1().data();
+    sh[len].x=u.figure->rect().toRect().x();
+    sh[len].xh=u.figure->rect().toRect().width();
+    sh[len].y=u.figure->rect().toRect().y();
+    sh[len].yh= u.figure->rect().toRect().height();
     sprintf(cmd,"insert into shelf(name,belong_to,x,y,w,h,direc,col,layer,thin,description)values(\'%s\',%d,%d,%d,%d,%d,%d,%d,%d,%d,\'%s\')",
             u.name.toLatin1().data(),u.belong_to,u.figure->rect().toRect().x(),u.figure->rect().toRect().y(),u.figure->rect().toRect().width(),
             u.figure->rect().toRect().height(),u.x,u.y,u.z,u.thin,u.description.toLatin1().data()
@@ -95,6 +99,10 @@ void conshelf::getshelf(storeshelf st){
     sh[len].c=st.y;
     sh[len].layer=st.z;
     sh[len].dir=st.x;
+    sh[len].x=st.figure->rect().x();
+    sh[len].y=st.figure->rect().y();
+    sh[len].xh=st.figure->rect().width();
+    sh[len].yh=st.figure->rect().height();
     len++;
     return ;
 }
@@ -174,5 +182,5 @@ Node conshelf::toNode(const storeitem & u,int id)
         p.ry()-=(u.y/y)*shelf.height();
         break;
     }
-    return Node(p.x(),p.y(),id);
+    return Node(p.x(),p.y(),id,u.z);
 }

@@ -8,25 +8,36 @@
 #include <QVector>
 #include "user.h"
 struct Node{
-    int x,y;
+    int x,y,layer;
     int id;
     QVector<QPair<int,double> > e;
     Node(){
         id=-1;
         e.clear();
+        layer=0;
     }
     Node (int a,int b){
         id=-1;
         e.clear();
         x=a;
         y=b;
+        layer=0;
     }
     Node(int a,int b,int c){
         id=-1;
         e.clear();
+        layer=0;
         x=a;
         y=b;
         id=c;
+    }
+    Node(int a,int b,int c,int d)
+    {
+        e.clear();
+        x=a;
+        y=b;
+        id=c;
+        layer=d;
     }
 };
 struct shdata{
@@ -40,6 +51,7 @@ struct shdata{
     }
 
     int c,layer,id,dir;
+    double x,xh,y,yh;
     QString name;
 };
 

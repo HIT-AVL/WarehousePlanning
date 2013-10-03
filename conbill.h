@@ -10,6 +10,22 @@
 #include <conitem.h>
 #include <QGraphicsEllipseItem>
 #include <QVector>
+struct ppoint{
+    float x,y;
+    int z;
+    ppoint(float a,float b,int c)
+    {
+        x=a;
+        y=b;
+        z=c;
+    }
+    ppoint()
+    {
+        x=y=0;
+        z=0;
+
+    }
+};
 class conbill
 {
 private:
@@ -22,6 +38,9 @@ private:
     QVector<int> decs;
     QVector<QPair<int,int> > to_do;
 public:
+    QPolygon ploygon;
+    ppoint ploy[100];
+    int ploylen;
     conbill();
     ~conbill();
     QMap<int,storebill> view;
