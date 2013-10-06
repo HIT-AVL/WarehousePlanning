@@ -30,6 +30,7 @@ public:
     void resetuser(userdata x);
     int errorCode;
     userdata db;
+    bool  f;
 protected:
     MYSQL_RES *mysql_result;
     MYSQL_ROW mysql_row;

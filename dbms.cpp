@@ -4,8 +4,12 @@
 #include <QMessageBox>
 DBMS::DBMS(userdata du){
     db=du;
+    f=true;
     this->initialize_sql();
-    this->connect_sql();
+    if(this->connect_sql())
+    {
+        f=false;
+    }
 }
 
 DBMS::~DBMS(){

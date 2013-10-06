@@ -29,7 +29,7 @@ void conbill::find_path(conshelf *shelf,conitem *item,QVector<QPair<QPair<QStrin
     //qDebug()<<"1";
     foreach(const storeitem & u,item->view){
         for (int i=0;i<keyword.size();i++)
-            if (qMakePair(u.name,u.category)==keyword[i].first){
+            if (qMakePair(u.name,u.category)==keyword[i].first&&u.belong_to!=-1){
                 int tmp=min(u.num-decs[j],keyword[i].second);
                 decs[j]+=tmp;
                 keyword[i].second-=tmp;

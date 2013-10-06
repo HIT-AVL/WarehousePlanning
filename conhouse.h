@@ -13,6 +13,7 @@ public:
     conhouse(userdata hu);
     void rinit();
     storehouse house;
+    bool flag;//是否存在house
 
     //QVector<storeshelf>;
     void insert_house(storehouse&);

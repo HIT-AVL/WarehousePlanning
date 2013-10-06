@@ -166,6 +166,11 @@ void MainWindow::on_initHouseButton_clicked()
     foreach (const storeshelf u,shelf->view)killer.push_back(u.id);
     for (int i=0;i<killer.size();i++)shelf->delete_shelf(killer[i]);
     house->delete_house();
+    bill->path->setVisible(false);
+   // for (int i=0;i<bill->point.size();i++){
+   //     this->scene->addItem(bill->point[i]);
+   // }
+    this->scene->clear();
 }
 
 void MainWindow::on_initInputButton_clicked()
@@ -424,7 +429,7 @@ void MainWindow::on_pushButton_3_clicked()
     house->resetuser(lim);
     if(!house->connect_test())
     {
-        QMessageBox::information(this, "注意", "请先设置用户信息，再尝试初始化!", QMessageBox::Ok );
+        QMessageBox::information(this, "注意", "请先设置用户信息或者正确安装mysql，再尝试初始化!", QMessageBox::Ok );
         return ;
     }
     char cmd[1000];

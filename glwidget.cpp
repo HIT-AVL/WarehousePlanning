@@ -44,48 +44,14 @@
 #include <math.h>
 
 #include "glwidget.h"
-#include "qtlogo.h"
 #define PI 3.1415926
 #ifndef GL_MULTISAMPLE
 #define GL_MULTISAMPLE  0x809D
 #endif
 // x,z,y  2,3,6,7
 //! [0]
-static const float vertex_list1[][3] =
-{
-    -0.5f, -0.5f, -0.5f,
-    0.5f, -0.5f, -0.5f,
-    -0.5f, 0.5f, -0.5f,
-    0.5f, 0.5f, -0.5f,
-    -0.5f, -0.5f, 0.5f,
-    0.5f, -0.5f, 0.5f,
-    -0.5f, 0.5f, 0.5f,
-    0.5f, 0.5f, 0.5f,
-};
-static const float vertex_list2[][3] =
-{
-    -0.05f, -0.5f, -0.05f,
-    0.05f, -0.5f, -0.05f,
-    -0.05f, 0.1f, -0.05f,
-    0.05f, 0.1f, -0.05f,
-    -0.05f, -0.5f, 0.05f,
-    0.05f, -0.5f, 0.05f,
-    -0.05f, 0.1f, 0.05f,
-    0.05f, 0.1f, 0.05f,
-};
-// 将要使用的顶点的序号保存到一个数组里面
-static const float vertex_list3[][3] =
-{
-    -0.05f, -0.5f, -0.05f,
-    0.05f, -0.5f, -0.05f,
-    -0.05f, -0.1f, -0.05f,
-    0.05f, -0.1f, -0.05f,
-    -0.05f, -0.5f, 0.05f,
-    0.05f, -0.5f, 0.05f,
-    -0.05f, -0.1f, 0.05f,
-    0.05f, -0.1f, 0.05f,
-};
-static const GLint index_list[][2] =
+
+static const GLint index_list[12][2] =
 {
     {0, 1},
     {2, 3},//
@@ -247,8 +213,8 @@ void GLWidget::drawPath()
 
 }
 
-static float rotate = 0;
-static int times = 0;
+//static float rotate = 0;
+//static int times = 0;
 GLWidget::GLWidget(conhouse *hou,conshelf *she,conbill *bll,QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
@@ -329,8 +295,8 @@ void GLWidget::setZRotation(int angle)
 //! [6]
 void GLWidget::initializeGL()
 {
-    qglClearColor(qtPurple.dark());
-
+    //qglClearColor(qtPurple.dark());
+    qglClearColor(QColor(255, 255, 255,255));
  //   logo = new QtLogo(this, 64);
   //  logo->setColor(qtGreen.dark());
 

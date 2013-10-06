@@ -27,8 +27,7 @@ SOURCES += main.cpp\
     shelfdialog.cpp \
     housedialog.cpp \
     h3dDialog.cpp  \
-    glwidget.cpp  \
-    qtlogo.cpp
+    glwidget.cpp
 HEADERS  += mainwindow.h \
     dbms.h \
     storeitem.h \
@@ -44,8 +43,7 @@ HEADERS  += mainwindow.h \
     housedialog.h \
     user.h \
     h3dDialog.h \
-    glwidget.h \
-    qtlogo.h
+    glwidget.h
 
 FORMS    += mainwindow.ui \
     shelfdialog.ui \

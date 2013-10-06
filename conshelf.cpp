@@ -72,7 +72,7 @@ void conshelf::insert_shelf(storeshelf &u){
     mysql_row=mysql_fetch_row(mysql_result);
     u.id=QString(QLatin1String(mysql_row[0])).toInt();
     sh[len].id=u.id;
-    len--;
+    len++;
     view[u.id]=u;
     return ;
 }

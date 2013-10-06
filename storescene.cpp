@@ -97,6 +97,13 @@ void storescene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
                  return ;
              }
          }
+         if(!house->flag)
+         {
+             delete curItem;
+             event->ignore();
+             QMessageBox::information(0, "注意", "请先创建仓库后，再尝试创建货架!", QMessageBox::Ok );
+             return ;
+         }
          if(!(house->house.figure->contains(curItem->rect().topLeft())&&house->house.figure->contains(curItem->rect().bottomRight()))) //书架不应超出仓库范围。
          {
                           delete curItem;
