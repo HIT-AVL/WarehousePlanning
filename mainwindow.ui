@@ -65,12 +65,15 @@
       <item>
        <widget class="QGraphicsView" name="houseView"/>
       </item>
+      <item>
+       <widget class="QWidget" name="widget" native="true"/>
+      </item>
      </layout>
     </item>
     <item>
      <widget class="QTabWidget" name="tab_5">
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -207,8 +210,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>371</width>
-          <height>391</height>
+          <width>381</width>
+          <height>411</height>
          </rect>
         </property>
         <property name="currentIndex">
@@ -457,15 +460,44 @@ p, li { white-space: pre-wrap; }
        <attribute name="title">
         <string>帮助</string>
        </attribute>
-       <widget class="QTextBrowser" name="textBrowser_6">
+       <widget class="QWidget" name="help" native="true">
         <property name="geometry">
          <rect>
-          <x>-5</x>
-          <y>1</y>
-          <width>371</width>
-          <height>391</height>
+          <x>-1</x>
+          <y>-1</y>
+          <width>381</width>
+          <height>411</height>
          </rect>
         </property>
+        <widget class="QTextBrowser" name="textBrowser_4">
+         <property name="geometry">
+          <rect>
+           <x>5</x>
+           <y>1</y>
+           <width>371</width>
+           <height>381</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="hp">
+         <property name="geometry">
+          <rect>
+           <x>270</x>
+           <y>380</y>
+           <width>91</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>91</width>
+           <height>23</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>查看帮助文档</string>
+         </property>
+        </widget>
        </widget>
       </widget>
      </widget>

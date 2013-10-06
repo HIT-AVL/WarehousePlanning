@@ -581,3 +581,27 @@ void MainWindow::on_house3dButton_clicked()
     h3dDialog d(house,shelf,bill);
     d.exec();
 }
+
+void MainWindow::on_pushButton_2_clicked()
+{
+//    ui->textBrowser_6->setText("limu");
+}
+
+void MainWindow::on_hp_clicked()
+{
+//    ui->textBrowser_6->setText("limu");
+    QString filename = ".\\README.md";
+    QString text="";
+    QFile f( filename );
+    if(!f.exists())
+    {
+        QMessageBox::information(0, "Document", "没有可以显示的帮助文档!", QMessageBox::Ok );
+        return ;
+    }
+    f.open(QIODevice::ReadOnly);
+
+    QTextStream t(&f);
+    text=t.readAll();
+    ui->textBrowser_4->setText(text);
+    f.close();
+}
