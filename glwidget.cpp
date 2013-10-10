@@ -181,14 +181,14 @@ void GLWidget::drawPath()
              p[2]=ay+(bill->ploy[i].y-by)/div;
              glVertex3fv(p);
              p[0]=ax+(bill->ploy[i].x-bx)/div;
-             p[1]=-0.5f+bill->ploy[i].z*0.06;
+             p[1]=-0.5f+(bill->ploy[i].z-1)*0.06;
              p[2]=ay+(bill->ploy[i].y-by)/div;
              glVertex3fv(p);
              glEnd();
              drawSphere(p[0], p[1], p[2],  0.01,  31 ,  62);
              glBegin(GL_LINES);
              p[0]=ax+(bill->ploy[i].x-bx)/div;
-             p[1]=-0.5f+bill->ploy[i].z*0.06;
+             p[1]=-0.5f+(bill->ploy[i].z-1)*0.06;
              p[2]=ay+(bill->ploy[i].y-by)/div;
              glVertex3fv(p);
              p[0]=ax+(bill->ploy[i].x-bx)/div;
